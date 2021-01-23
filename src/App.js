@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
@@ -27,7 +27,7 @@ function App() {
     }
   }, []);
 
-  const handleOnDragEnd = (result) => {
+  const handleOnDragEnd = useCallback((result) => {
     if (!result.destination) return;
     if (result.source.index === result.destination.index) {
       return;
@@ -36,7 +36,7 @@ function App() {
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
     setTvShows(items);
-  };
+  }, [tvShows]);
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>

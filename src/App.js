@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
-import Item from './components/Item';
+import Feed from './components/Feed';
 
 function App() {
   const [tvShows, setTvShows] = useState([]);
@@ -29,6 +29,9 @@ function App() {
 
   const handleOnDragEnd = (result) => {
     if (!result.destination) return;
+    if (result.source.index === result.destination.index) {
+      return;
+    }
     const items = tvShows;
     const [reorderedItem] = items.splice(result.source.index, 1);
     items.splice(result.destination.index, 0, reorderedItem);
@@ -39,20 +42,7 @@ function App() {
     <DragDropContext onDragEnd={handleOnDragEnd}>
       <Droppable droppableId="tvShows">
         {(provided) => (
-          <ul {...provided.droppableProps} ref={provided.innerRef}>
-            {tvShows.map((tvShow, index) => (
-              <Draggable
-                key={tvShow.id}
-                draggableId={tvShow.id.toString()}
-                index={index}
-              >
-                {(provided) => (
-                  <Item innerRef={provided.innerRef} provided={provided} item={tvShow} />
-                )}
-              </Draggable>
-            ))}
-            {provided.placeholder}
-          </ul>
+          <Feed items={tvShows} provided={provided} />
         )}
       </Droppable>
     </DragDropContext>

@@ -1,8 +1,10 @@
 import React, { useEffect, useState, useCallback } from 'react';
 import axios from 'axios';
-import { DragDropContext, Droppable } from 'react-beautiful-dnd';
-
-import Feed from './components/Feed';
+import { DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { FixedSizeList } from 'react-window';
+import PropTypes from 'prop-types';
+import Item from './components/Item';
+// import Feed from './components/Feed';
 
 function App() {
   const [tvShows, setTvShows] = useState([]);
@@ -38,11 +40,57 @@ function App() {
     setTvShows(items);
   }, [tvShows]);
 
+  const Row = React.memo(({ data, index, style }) => {
+    const tvShow = data[index];
+    return (
+      <Draggable
+        draggableId={tvShow.id.toString()}
+        index={index}
+        key={tvShow.id}
+      >
+        {(provided) => (
+          <Item style={style} provided={provided} item={tvShow} />
+        )}
+      </Draggable>
+    );
+  });
+
+  Row.propTypes = {
+    index: PropTypes.number.isRequired,
+    style: PropTypes.instanceOf(Object).isRequired,
+    data: PropTypes.instanceOf(Array).isRequired,
+  };
+
+  const clone = (provided, snapshot, rubric) => (
+    <ul
+      {...provided.draggableProps}
+      {...provided.dragHandleProps}
+      ref={provided.innerRef}
+    >
+      <Item provided={provided} item={tvShows[rubric.source.index]} />
+    </ul>
+  );
+
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <Droppable droppableId="tvShows">
+      <Droppable
+        mode="virtual"
+        droppableId="tvShows"
+        renderClone={clone}
+      >
         {(provided) => (
-          <Feed items={tvShows} provided={provided} />
+          <FixedSizeList
+            height={window.innerHeight}
+            itemCount={tvShows.length}
+            itemSize={148}
+            width={window.innerWidth}
+            outerRef={provided.innerRef}
+            itemData={tvShows}
+            innerElementType="ul"
+          >
+            {Row}
+          </FixedSizeList>
+          // <Feed items={tvShows} provided={provided} />
         )}
       </Droppable>
     </DragDropContext>

@@ -27,7 +27,7 @@ const App = () => {
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <div className="flex flex-col items-center bg-gray-800">
+      <div className="flex flex-col items-center bg-gray-100">
         <Droppable
           mode="virtual"
           droppableId="tvShows"

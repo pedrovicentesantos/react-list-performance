@@ -9,9 +9,8 @@ const getStyle = ({ provided, style, isDragging }) => {
     ...combinedStyle,
     height: isDragging ? combinedStyle.height : combinedStyle.height - margin,
     marginBottom: margin,
-    background: isDragging ? '#515b7d' : combinedStyle.background,
-    borderColor: isDragging ? 'MediumSeaGreen' : combinedStyle.borderColor,
-    boxShadow: isDragging ? '0px 0px 2px rgb(8, 58, 30), 0px 0px 10px MediumSeaGreen' : combinedStyle.boxShadow,
+    borderColor: isDragging ? '#059669' : combinedStyle.borderColor,
+    boxShadow: isDragging ? '0px 0px 20px #064E3B' : combinedStyle.boxShadow,
   };
 
   return styleWithSpacing;

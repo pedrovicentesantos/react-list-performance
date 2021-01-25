@@ -18,14 +18,14 @@ const Item = React.memo(({
     className="flex
       items-center
       md:justify-between
-      bg-gray-900
+      bg-gray-200
       border-solid
-      border-green-800
+      border-blue-400
       border-4
       rounded"
   >
     <img className="p-1 h-32 w-24 rounded md:ml-4" src={item.image?.medium || 'https://via.placeholder.com/210x295'} alt={item.name} />
-    <p className="font-bold text-gray-200 text-3xl md:mr-4">{item.name}</p>
+    <p className="font-bold text-gray-800 text-3xl md:mr-8">{item.name}</p>
   </div>
 ), areEqual);
 

@@ -20,7 +20,7 @@ Foram aplicadas algumas técnicas para melhorar a performance:
 
 - Uso do [react-window](https://github.com/bvaughn/react-window)
   * Renderiza apenas a parte dos dados que está aparecendo para o usuário
-- Uso de memoization
+- Uso de memoization com `React memo`
 - Uso do React Hook `useCallback`
 
 Com a aplicação dessas técnicas, a aplicação consegue ter um funcionamento agradável sem atrapalhar a experiência do usuário.

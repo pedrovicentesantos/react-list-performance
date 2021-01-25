@@ -10,31 +10,22 @@ const Item = React.memo(({
   style,
   isDragging,
 }) => (
-  <div>
-    <li
-      ref={provided.innerRef}
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
-      style={getStyle({ provided, style, isDragging })}
-      className="flex
-        items-center
-        justify-between
-        box-border
-        bg-blue-900
-        mx-4
-        border-solid
-        border-blue-500
-        border-2
-        rounded
-        mx-4
-        md:mx-96
-        pr-3
-        pl-2
-        py-2"
-    >
-      <img className="p-1 h-32 w-24 rounded" src={item.image?.medium || 'https://via.placeholder.com/210x295'} alt={item.name} />
-      <p className="font-bold text-gray-200 md:mr-4">{item.name}</p>
-    </li>
+  <div
+    {...provided.draggableProps}
+    {...provided.dragHandleProps}
+    ref={provided.innerRef}
+    style={getStyle({ provided, style, isDragging })}
+    className="flex
+      items-center
+      md:justify-between
+      bg-gray-900
+      border-solid
+      border-green-800
+      border-4
+      rounded"
+  >
+    <img className="p-1 h-32 w-24 rounded md:ml-4" src={item.image?.medium || 'https://via.placeholder.com/210x295'} alt={item.name} />
+    <p className="font-bold text-gray-200 text-3xl md:mr-4">{item.name}</p>
   </div>
 ), areEqual);
 

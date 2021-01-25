@@ -1,44 +1,37 @@
 import React, { useCallback } from 'react';
 import { DragDropContext, Droppable } from 'react-beautiful-dnd';
 
+import useAsync from './utils/useAsync';
+import { reorderItems } from './utils/utils';
 import Item from './components/Item';
 import Feed from './components/Feed';
-import useAsync from './utils/useAsync';
 
-function App() {
+const App = () => {
   const [tvShows, setTvShows] = useAsync([]);
 
   const handleOnDragEnd = useCallback((result) => {
     if (!result.destination) return;
     if (result.source.index === result.destination.index) return;
 
-    const items = Array.from(tvShows);
-    const [reorderedItem] = items.splice(result.source.index, 1);
-    items.splice(result.destination.index, 0, reorderedItem);
-    setTvShows(items);
+    const newItems = reorderItems(tvShows, result.source.index, result.destination.index);
+    setTvShows(newItems);
   }, [tvShows]);
 
-  const clone = useCallback((provided, snapshot, rubric) => (
-    <ul
-      {...provided.draggableProps}
-      {...provided.dragHandleProps}
-      ref={provided.innerRef}
-    >
-      <Item
-        provided={provided}
-        item={tvShows[rubric.source.index]}
-        isDragging={snapshot.isDragging}
-      />
-    </ul>
+  const renderClone = useCallback((provided, snapshot, rubric) => (
+    <Item
+      provided={provided}
+      item={tvShows[rubric.source.index]}
+      isDragging={snapshot.isDragging}
+    />
   ), [tvShows]);
 
   return (
     <DragDropContext onDragEnd={handleOnDragEnd}>
-      <div className="flex flex-col items-center bg-blue-200">
+      <div className="flex flex-col items-center bg-gray-800">
         <Droppable
           mode="virtual"
           droppableId="tvShows"
-          renderClone={clone}
+          renderClone={renderClone}
         >
           {(provided) => (
             <Feed items={tvShows} provided={provided} />
@@ -47,6 +40,6 @@ function App() {
       </div>
     </DragDropContext>
   );
-}
+};
 
 export default App;

@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { FixedSizeList } from 'react-window';
+import { FixedSizeList, areEqual } from 'react-window';
 
 import ListRow from './ListRow';
 
@@ -12,11 +12,10 @@ const Feed = React.memo(({ provided, items }) => (
     width={window.innerWidth}
     outerRef={provided.innerRef}
     itemData={items}
-    innerElementType="ul"
   >
     {ListRow}
   </FixedSizeList>
-));
+), areEqual);
 
 Feed.propTypes = {
   items: PropTypes.instanceOf(Array).isRequired,

@@ -1,22 +1,28 @@
 const getStyle = ({ provided, style, isDragging }) => {
-  const combined = {
+  const combinedStyle = {
     ...style,
     ...provided.draggableProps.style,
   };
 
   const margin = 12;
   const styleWithSpacing = {
-    ...combined,
-    height: isDragging ? combined.height : combined.height - margin,
-    top: isDragging ? 0 : combined.top,
-    width: isDragging ? combined.width : '-webkit-fill-available',
-    marginTop: margin,
+    ...combinedStyle,
+    height: isDragging ? combinedStyle.height : combinedStyle.height - margin,
+    marginBottom: margin,
+    background: isDragging ? '#515b7d' : combinedStyle.background,
+    borderColor: isDragging ? 'MediumSeaGreen' : combinedStyle.borderColor,
+    boxShadow: isDragging ? '0px 0px 2px rgb(8, 58, 30), 0px 0px 10px MediumSeaGreen' : combinedStyle.boxShadow,
   };
+
   return styleWithSpacing;
 };
 
-const areEqual = (prevProps, nextProps) => (
-  prevProps.item.id === nextProps.item.id
-);
+const reorderItems = (list, startIndex, endIndex) => {
+  const result = Array.from(list);
+  const [removedItem] = result.splice(startIndex, 1);
+  result.splice(endIndex, 0, removedItem);
 
-export { getStyle, areEqual };
+  return result;
+};
+
+export { getStyle, reorderItems };

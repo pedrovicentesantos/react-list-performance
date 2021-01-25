@@ -9,7 +9,7 @@ const useAsync = (initialState) => {
     try {
       fetchData(setState);
     } catch (err) {
-      console.log(err);
+      setState([]);
     }
   }, []);
 

@@ -16,18 +16,16 @@ const Item = React.memo(({
     {...provided.dragHandleProps}
     ref={provided.innerRef}
     style={getStyle({ provided, style, isDragging })}
-    className="flex
-      items-center
-      md:justify-between
-      place-content-start
-      bg-gray-200
+    className="
       border-solid
       border-blue-400
       border-4
       rounded"
   >
-    <img className="p-1 h-32 w-24 rounded md:ml-4" src={item.image?.medium || 'https://via.placeholder.com/210x295'} alt={item.name} />
-    <p className="font-bold text-gray-800 text-3xl md:mr-8">{item.name}</p>
+    <div className="flex items-center md:justify-between">
+      <img className="p-1 h-32 w-24 rounded mr-2 md:ml-4" src={item.image?.medium || 'https://via.placeholder.com/210x295'} alt={item.name} />
+      <p className="font-bold text-gray-800 text-xl md:text-3xl md:mr-8">{item.name}</p>
+    </div>
     <a className="absolute top-2 right-1" href={item.url} target="_blank" rel="noreferrer">
       <ExternalLink />
     </a>

@@ -9,7 +9,7 @@ const Feed = React.memo(({ provided, items }) => (
     height={window.innerHeight}
     itemCount={items.length}
     itemSize={148}
-    width="65%"
+    width="100%"
     outerRef={provided.innerRef}
     itemData={items}
   >

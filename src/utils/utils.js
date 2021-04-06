@@ -11,6 +11,10 @@ const getStyle = ({ provided, style, isDragging }) => {
     marginBottom: margin,
     borderColor: isDragging ? '#059669' : combinedStyle.borderColor,
     boxShadow: isDragging ? '0px 0px 20px #064E3B' : combinedStyle.boxShadow,
+    // Para centralizar o card
+    width: '65%',
+    marginRight: '17.5%',
+    marginLeft: '17.5%',
   };
 
   return styleWithSpacing;

@@ -5,9 +5,10 @@ import useAsync from './utils/useAsync';
 import { reorderItems } from './utils/utils';
 import Item from './components/Item';
 import Feed from './components/Feed';
+import Loading from './components/Loading';
 
 const App = () => {
-  const [tvShows, setTvShows] = useAsync([]);
+  const [tvShows, setTvShows, loading] = useAsync([]);
 
   const handleOnDragEnd = useCallback((result) => {
     if (!result.destination) return;
@@ -26,19 +27,26 @@ const App = () => {
   ), [tvShows]);
 
   return (
-    <DragDropContext onDragEnd={handleOnDragEnd}>
-      <div className="flex flex-col items-center">
-        <Droppable
-          mode="virtual"
-          droppableId="tvShows"
-          renderClone={renderClone}
-        >
-          {(provided) => (
-            <Feed items={tvShows} provided={provided} />
-          )}
-        </Droppable>
-      </div>
-    </DragDropContext>
+    <>
+      {loading
+        ? (
+          <Loading />
+        ) : (
+          <DragDropContext onDragEnd={handleOnDragEnd}>
+            <div className="flex flex-col items-center">
+              <Droppable
+                mode="virtual"
+                droppableId="tvShows"
+                renderClone={renderClone}
+              >
+                {(provided) => (
+                  <Feed items={tvShows} provided={provided} />
+                )}
+              </Droppable>
+            </div>
+          </DragDropContext>
+        )}
+    </>
   );
 };
 

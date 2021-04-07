@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import PropTypes from 'prop-types';
 import { areEqual } from 'react-window';
 import { ExternalLink, Star } from 'react-feather';
@@ -12,6 +12,44 @@ const Item = React.memo(({
   isDragging,
 }) => {
   const [isFav, setIsFav] = useState(false);
+
+  useEffect(() => {
+    let savedFavorites = [];
+    const savedFavoritesString = localStorage
+      .getItem('favorite-tvshows');
+    if (savedFavoritesString) {
+      savedFavorites = localStorage
+        .getItem('favorite-tvshows')
+        .split(',')
+        .map((item) => item.trim());
+    }
+
+    console.log(savedFavorites);
+    if (savedFavorites.includes(item.name)) setIsFav(true);
+  }, []);
+
+  const handleFavorite = () => {
+    let savedFavorites = [];
+    setIsFav(!isFav);
+
+    const savedFavoritesString = localStorage
+      .getItem('favorite-tvshows');
+    if (savedFavoritesString) {
+      savedFavorites = localStorage
+        .getItem('favorite-tvshows')
+        .split(',')
+        .map((item) => item.trim());
+    }
+    // Remover o que estava salvo
+    if (savedFavorites.includes(item.name)) {
+      const newFavorites = savedFavorites.filter((savedFavorite) => savedFavorite !== item.name);
+      localStorage.setItem('favorite-tvshows', newFavorites.join(', '));
+    // Adicionar novo favorito
+    } else {
+      savedFavorites.push(item.name);
+      localStorage.setItem('favorite-tvshows', savedFavorites.join(', '));
+    }
+  };
 
   return (
     <div
@@ -32,7 +70,7 @@ const Item = React.memo(({
       <a className="absolute top-2 right-1" href={item.url} target="_blank" rel="noreferrer">
         <ExternalLink />
       </a>
-      <button onClick={() => setIsFav(!isFav)} className="absolute top-2 right-9" type="button">
+      <button onClick={handleFavorite} className="absolute top-2 right-9" type="button">
         {isFav
           ? (
             <Star fill="yellow" strokeWidth={2} />

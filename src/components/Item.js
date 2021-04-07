@@ -24,7 +24,6 @@ const Item = React.memo(({
         .map((item) => item.trim());
     }
 
-    console.log(savedFavorites);
     if (savedFavorites.includes(item.name)) setIsFav(true);
   }, []);
 

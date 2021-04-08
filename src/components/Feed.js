@@ -8,7 +8,7 @@ const Feed = React.memo(({ provided, items }) => (
   <FixedSizeList
     height={window.innerHeight}
     itemCount={items.length}
-    itemSize={148}
+    itemSize={180}
     width="100%"
     outerRef={provided.innerRef}
     itemData={items}

@@ -12,6 +12,12 @@ O deploy da aplicação foi realizado na Vercel e pode ser acessado em:
 
 [https://react-list-performance.vercel.app](https://react-list-performance.vercel.app)
 
+## Funcionalidades
+
+Além de exibir a lista de séries obtidas a partir da API, é possível acessar a URL da série no site do TV Maze e marcar as séries favoritas.
+
+Para salvar as séries favoritas do usuário, é utilizado o `local storage` do navegador. Com isso, os favoritos ficam salvos por tempo indeterminado, até que o usuário limpe o `local storage` do navegador.
+
 ## Performance
 
 A lista é composta por mais de 2.000 items e a renderização da mesma sem algum tipo de otimização degrada a performance da aplicação.
